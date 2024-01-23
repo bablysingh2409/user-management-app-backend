@@ -20,12 +20,14 @@ const verifyToken=(req,res,next)=>{
 
 const verifyUser=(req,res,next)=>{
    
-   console.log('paramaaaa',req.params.id)
+   
     verifyToken(req,res,()=>{
-       if(req.user.id==req.params.id){  
+        
+       if(req.user.id===req.params.id){  
         next();
        }
        else{
+        
         return next(createError(403,"you are not authorized"));
        }
     })

@@ -2,14 +2,18 @@ const express=require('express');
 const auth=require('./routes/auth')
 const connectDB=require('./config/db');
 const cors=require('cors');
+const user=require('./routes/user');
+const cookieParser=require('cookie-parser');
 const app=express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
  
 connectDB();
 
 app.use('/auth',auth);
+app.use('/user',user)
 
 app.use((err,req,res,next)=>{
     const errorStatus=err.status||500;
