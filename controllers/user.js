@@ -1,8 +1,8 @@
 const CreatedUser = require('../models/createdUser');
-const createError=require('../middlewares/error');
+const createError = require('../middlewares/error');
 
 const userController = {
-  getAllUsers: async (req, res,next) => {
+  getAllUsers: async (req, res, next) => {
     try {
       const users = await CreatedUser.find();
       res.json(users);
@@ -12,7 +12,7 @@ const userController = {
     }
   },
 
-  addUser: async (req, res,next) => {
+  addUser: async (req, res, next) => {
     try {
       const { name, email, phone } = req.body;
       const newUser = new CreatedUser({ name, email, phone });
@@ -24,12 +24,12 @@ const userController = {
     }
   },
 
-  getUserDetails: async (req, res,next) => {
+  getUserDetails: async (req, res, next) => {
     try {
       const userId = req.params.userId;
       const user = await CreatedUser.findById(userId);
       if (!user) {
-        return next(createError(404,'User not found')) 
+        return next(createError(404, 'User not found'))
       }
       res.json(user);
     } catch (error) {
@@ -38,7 +38,7 @@ const userController = {
     }
   },
 
-  editUser: async (req, res,next) => {
+  editUser: async (req, res, next) => {
     try {
       const userId = req.params.userId;
       const { name, email, phone } = req.body;
@@ -48,7 +48,7 @@ const userController = {
         { new: true }
       );
       if (!updatedUser) {
-        return next(createError(404,'User not found'))  
+        return next(createError(404, 'User not found'))
       }
       res.json(updatedUser);
     } catch (error) {
@@ -57,19 +57,21 @@ const userController = {
     }
   },
 
-  deleteUser: async (req, res,next) => {
+  deleteUser: async (req, res, next) => {
     try {
       const userId = req.params.userId;
       const deletedUser = await CreatedUser.findByIdAndDelete(userId);
       if (!deletedUser) {
-        return next(createError(404,'User not found')) 
+        return next(createError(404, 'User not found'))
       }
-      res.json({ message: 'User deleted successfully' });
+      // console.log(deletedUser);
+      res.json(deletedUser);
     } catch (error) {
       console.error('Error deleting user:', error.message);
       res.status(500).send(next());
     }
   },
+
 };
 
 module.exports = userController;

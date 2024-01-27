@@ -42,12 +42,13 @@ const authentication = {
                 },
                 process.env.JWT_SECRET
             );
-            const {password,score,...otherDetails}=user._doc;
+            const {password,...otherDetails}=user._doc;
 
-            res.cookie("access_token",token,{
-                httpOnly:true,
-                maxAge: 3600000
-            }).status(200).json({...otherDetails});
+            // res.cookie("access_token",token,{
+            //     httpOnly:true,
+            //     maxAge: 3600000
+            // }).status(200).json({...otherDetails});
+            res.status(200).json({...otherDetails});
         }
         catch (err) {
             next(err);

@@ -11,5 +11,5 @@ const userSchema=new mongoose.Schema({
     city: { type: String, enum: ['Mumbai', 'Pune', 'Ahmedabad'], required: true },
     state: { type: String, enum: ['Gujarat', 'Maharashtra', 'Karnataka'], required: true }, 
 });
-
+  
 module.exports=mongoose.model('User',userSchema);
