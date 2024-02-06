@@ -5,6 +5,8 @@ const cors=require('cors');
 const user=require('./routes/user');
 const cookieParser=require('cookie-parser');
 const app=express();
+require('dotenv').config();
+const PORT=process.env.PORT || '5500';
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +29,7 @@ app.use((err,req,res,next)=>{
 })
 
 
-app.listen('5500',()=>{
+app.listen(PORT,()=>{
     console.log('server is rennuing on port 5500')
 })
 
